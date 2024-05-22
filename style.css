@@ -45,3 +45,22 @@ body {
   font-size: 40px;
   color: rgb(34, 34, 34);
 }
+
+.GetLocation {
+  border-radius: 8px;
+  border: none;
+  background-color: rgb(84, 175, 255);
+  height: 50px;
+  width: 250px;
+}
+
+.EnterCity {
+  border: none;
+  width: 250px;
+  height: 30px;
+  border-radius: 8px;
+}
+
+::placeholder {
+  text-align: center;
+}
