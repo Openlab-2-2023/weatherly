@@ -65,8 +65,7 @@ body {
 .CityRow {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  gap: 27px;
+  justify-content: space-around;
 }
 
 .CityParameters {
@@ -74,4 +73,12 @@ body {
   height: 161px;
   background-color: rgb(213, 237, 255, 50%);
   border-radius: 14px;
+}
+
+.HoursWeather {
+  width: 1363px;
+  height: 193px;
+  background-color: rgb(213, 237, 255, 50%);
+  margin-top: 28px;
+  margin-left: 47px;
 }
