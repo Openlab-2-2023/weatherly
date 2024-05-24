@@ -27,9 +27,51 @@ body {
   margin-left: 19px;
   border: none;
 }
-.searchIMG {
-  width: 60px;
-  height: 60px;
-  margin-top: 8px;
-  margin-left: 19px;
+
+.searchButton {
+  border: none;
+  background-color: transparent;
+}
+.searchImg {
+  position: absolute;
+  left: 695px;
+  top: 13px;
+  height: 45px;
+  width: 45px;
+}
+
+.City {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px; /* Test, odstraniť!!! */
+}
+
+.MainCity {
+  width: 667px;
+  height: 359px;
+  background-color: rgb(213, 237, 255, 50%);
+  margin-top: 27px;
+  margin-left: 47px;
+  border-radius: 14px;
+}
+
+.CityInfo {
+  height: 359px;
+  width: 655px;
+  margin-left: 47px;
+  margin-top: 27px;
+}
+.CityRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 27px;
+}
+
+.CityParameters {
+  width: 200px;
+  height: 161px;
+  background-color: rgb(213, 237, 255, 50%);
+  border-radius: 14px;
 }
