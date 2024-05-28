@@ -8,7 +8,7 @@ body {
   background-image: url(images/backgroundimage.png);
   background-size: cover;
   background-attachment: fixed;
-  font-family: Arial, sans-serif;
+
   margin: 0;
   padding: 0;
 }
@@ -118,8 +118,8 @@ nav {
   margin: 5px;
   flex: 1 1 30%;
   border-radius: 14px;
-  height: 5.5rem;
-  width: 3rem;
+  height: 150px;
+  width: 2.8rem;
   text-align: center;
 }
 
@@ -131,12 +131,15 @@ nav {
   border-radius: 14px;
 }
 
+.long-box {
+  height: 200px;
+}
 .hour-box {
   padding: 10px;
   margin: 5px;
   flex: 1 1 7%;
-  height: 215px;
   text-align: center;
+  align-items: center;
 }
 
 .daily-forecast {
@@ -181,4 +184,17 @@ nav {
   .daily-forecast {
     flex-direction: column;
   }
+}
+
+.HourTime {
+  margin: 0;
+  padding: 0;
+}
+.IconHourIcon {
+  height: 120px;
+}
+
+.iconHourTemp {
+  margin: 0;
+  padding: 0;
 }
