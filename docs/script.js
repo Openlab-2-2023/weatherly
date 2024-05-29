@@ -1,0 +1,11 @@
+// Povolenie pre pristup polohy:
+navigator.geolocation.getCurrentPosition(async (position) => {
+    const { latitude, longitude } = position.coords;
+    // Skladanie a zasielanie HTTPS requestu pre data do API:
+    const apiKey = 'a5e9e2ff64c04ebf84761702242805';
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`);
+    const data = await response.json();
+    // Vyberanie dat z toho .json suboru:
+    const temperature = data.current.temp_c;
+    document.getElementById('weatherSpan').textContent = `Current temperature: ${temperature}°C`;
+});
