@@ -1,8 +1,3 @@
 Super aplikacia.
 
-
-
-
-
-BenYes
-Mauntin included
+By Ben and martin852147
