@@ -14,6 +14,9 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   const CityName = data.location.name;
   document.getElementById("CurentCityName").textContent = ` ${CityName}`;
 
+  const CurentWeather = data.current.condition.text;
+  document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
+
   const IconCurent = data.current.condition.icon;
   document.getElementById("CurentIcon").src = ` ${IconCurent}`;
 });
