@@ -1,3 +1,10 @@
-Super aplikacia.
 
-By Ben and martin852147
+## Screenshots
+![App Screenshot]
+# Project Title
+Weatherly is a great weather app without those anoying ads.
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+## Screenshots
+![App Screenshot]
+
