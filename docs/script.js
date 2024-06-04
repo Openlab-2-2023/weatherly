@@ -29,4 +29,14 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
   const windIndicator = data.current.wind_kph;
   document.getElementById("windIndicator").textContent = ` ${windIndicator}`;
+
+  const pressureIndicator = data.current.pressure_mb;
+  document.getElementById(
+    "pressureIndicator"
+  ).textContent = ` ${pressureIndicator}hPa`;
+
+  const humidityIndicator = data.current.humidity;
+  document.getElementById(
+    "humidityIndicator"
+  ).textContent = ` ${humidityIndicator}`;
 });

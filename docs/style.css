@@ -236,3 +236,21 @@ nav {
 #windIndicator {
   margin-top: -5px;
 }
+
+#pressureImg {
+  height: 70px;
+  margin-top: -10px;
+}
+
+#pressureIndicator {
+  margin-top: -5px;
+}
+
+#humidityImg {
+  height: 70px;
+  margin-top: -10px;
+}
+
+#humidityIndicator {
+  margin-top: -5px;
+}
