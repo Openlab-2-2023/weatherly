@@ -7,6 +7,10 @@ navigator.geolocation.getCurrentPosition(async (position) => {
     `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`
   );
   const data = await response.json();
+  const response1 = await fetch(
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
+  );
+  const data1 = await response1.json();
   // Vyberanie dat z toho .json suboru:
   const temperature = data.current.temp_c;
   document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
