@@ -218,3 +218,21 @@ nav {
   margin: 0;
   padding: 0;
 }
+
+#uvImg {
+  height: 70px;
+  margin-top: -10px;
+}
+
+#uvIndicator {
+  margin-top: -5px;
+}
+
+#windImg {
+  height: 70px;
+  margin-top: -10px;
+}
+
+#windIndicator {
+  margin-top: -5px;
+}

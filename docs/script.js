@@ -19,4 +19,10 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
   const IconCurent = data.current.condition.icon;
   document.getElementById("CurentIcon").src = ` ${IconCurent}`;
+
+  const UvIndicator = data.current.uv;
+  document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
+
+  const windIndicator = data.current.wind_kph;
+  document.getElementById("windIndicator").textContent = ` ${windIndicator}`;
 });
