@@ -39,9 +39,6 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   document.getElementById(
     "humidityIndicator"
   ).textContent = ` ${humidityIndicator}`;
-
-  const weatherfure1 = data1.forecast.forecastday.date;
-  document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
 });
 
 function getRoundedDate() {
