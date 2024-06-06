@@ -39,4 +39,27 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   document.getElementById(
     "humidityIndicator"
   ).textContent = ` ${humidityIndicator}`;
+
+  const weatherfure1 = data1.forecast.forecastday.date;
+  document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
 });
+
+function getRoundedDate() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  if (minutes >= 30) {
+    hours += 1;
+  }
+  hours = String(hours).padStart(2, "0");
+
+  const formattedDate = `${year}-${month}-${day} ${hours}:00`;
+  return formattedDate;
+}
+
+console.log(getRoundedDate());
