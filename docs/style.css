@@ -177,35 +177,6 @@ nav {
   text-align: center;
 }
 
-@media screen and (max-width: 768px) {
-  .today-forecast,
-  .hourly-forecast,
-  .daily-forecast {
-    padding: 0px 5px;
-  }
-
-  .today-forecast {
-    flex-direction: column;
-  }
-
-  .small-box {
-    flex: 1 1 30%;
-    height: 5.5rem;
-  }
-
-  .hourly-forecast .long-box {
-    flex-direction: column;
-  }
-
-  .transparent-box {
-    flex: 1 1 45%;
-  }
-
-  .daily-forecast {
-    flex-direction: column;
-  }
-}
-
 .HourTime {
   margin: 0;
   padding: 0;

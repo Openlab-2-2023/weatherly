@@ -11,6 +11,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
     `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
   );
   const data1 = await response1.json();
+
   // Vyberanie dat z toho .json suboru:
   const temperature = data.current.temp_c;
   document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
@@ -42,24 +43,43 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
   const weatherfure1 = data1.forecast.forecastday.date;
   document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
-});
 
-function getRoundedDate() {
-  const now = new Date();
+  try {
+    // Vezmeme vsetky hodinove hodnoty co maju byt dnes
+    const hourlyData = data1.forecast.forecastday[0].hour;
 
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
+    // Momentalna hodina
+    const currentTime = new Date().getHours();
 
-  let hours = now.getHours();
-  const minutes = now.getMinutes();
-  if (minutes >= 30) {
-    hours += 1;
+    // Zfiltrujeme hodnoty podla toho, aka hodina je a ktore ostavaju z dna
+    const filteredHourlyData = hourlyData.filter(hour => {
+      const hourTime = parseInt(hour.time.split(' ')[1].split(':')[0]); // Extract the hour part
+      return hourTime >= currentTime && hourTime < currentTime + 8; // Filter for the next 7 hours
+    });
+
+    const hourlyForecastContainer = document.getElementById('hourly-forecast-container');
+
+    // Vytvorime HTML Hodnoty pre boxy pomocou cyklu
+    filteredHourlyData.forEach((hour, index) => {
+      const time = hour.time.split(' ')[1]; // Zoberieme iba cas, bez datumu
+      const icon = hour.condition.icon.replace('/images/');
+      const tempC = hour.temp_c;
+
+      // Zadanie hodnot do boxu
+      const hourBox = document.createElement('div');
+      hourBox.className = 'hour-box';
+
+      hourBox.innerHTML = `
+        <p class="HourTime">${time}</p>
+        <img src="${icon}" class="IconHourIcon" />
+        <p class="iconHourTemp">${tempC}℃</p>
+      `;
+
+      // Odoslanie boxov do HTML
+      hourlyForecastContainer.appendChild(hourBox);
+    });
+    
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
   }
-  hours = String(hours).padStart(2, "0");
-
-  const formattedDate = `${year}-${month}-${day} ${hours}:00`;
-  return formattedDate;
-}
-
-console.log(getRoundedDate());
+});
