@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Načítacia obrazovka</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+      }
+
+      #loading-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fff;
+        z-index: 9999;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 8px solid rgba(0, 0, 0, 0.1);
+        border-top: 8px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+    <div id="content" style="display: none">
+      <!-- Obsah stránky -->
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Simulácia oneskorenia načítania obsahu (napr. 2 sekundy)
+        setTimeout(function () {
+          document.getElementById("loading-screen").style.display = "none";
+          document.getElementById("content").style.display = "block";
+        }, 2000);
+      });
+    </script>
+  </body>
+</html>

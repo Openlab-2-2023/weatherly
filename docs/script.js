@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Simulácia oneskorenia načítania obsahu (napr. 2 sekundy)
+  setTimeout(function () {
+    document.getElementById("loading-screen").style.display = "none";
+    document.getElementById("content").style.display = "block";
+  }, 2000);
+});
+
 function updateClock() {
   const now = new Date();
   const options = {

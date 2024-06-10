@@ -11,69 +11,76 @@
   </head>
 
   <body>
-    <!-- Navbar -->
-    <section>
-      <nav>
-        <div class="searchbar">
-          <input type="text" placeholder="Enter your city.." />
-          <button class="search-icon">
-            <img src="images/search.svg" alt="" />
-          </button>
-          <div class="clock" id="clock"></div>
+    <div id="loading-screen">
+      <div class="spinner"></div>
+      <p>Loading...</p>
+    </div>
+    <div id="content" style="display: none">
+      <!-- Obsah stránky -->
+      <!-- Navbar -->
+      <section>
+        <nav>
+          <div class="searchbar">
+            <input type="text" placeholder="Enter your city.." />
+            <button class="search-icon">
+              <img src="images/search.svg" alt="" />
+            </button>
+            <div class="clock" id="clock"></div>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">Languages</button>
+            <div class="dropdown-content">
+              <a href="#">English</a>
+              <a href="#">Slovak</a>
+              <a href="#">Bober</a>
+            </div>
+          </div>
+        </nav>
+      </section>
+
+      <!-- Today's forecast -->
+      <section class="today-forecast">
+        <div class="full-box">
+          <h2 id="CurentCityName">City Name</h2>
+          <div id="CurentBox">
+            <img src="" id="CurentIcon" />
+            <p id="CurentTemp">0℃</p>
+          </div>
+          <h4 id="CurentWeather"></h4>
         </div>
-        <div class="dropdown">
-          <button class="dropbtn">Languages</button>
-          <div class="dropdown-content">
-            <a href="#">English</a>
-            <a href="#">Slovak</a>
-            <a href="#">Bober</a>
+        <div class="small-boxes">
+          <div class="small-box">
+            <p>UV</p>
+            <img src="./images/UV.png" id="uvImg" />
+            <p id="uvIndicator"></p>
+          </div>
+          <div class="small-box">
+            <p>Wind</p>
+            <img src="./images/Wind.png" id="windImg" />
+            <p id="windIndicator"></p>
+          </div>
+          <div class="small-box">
+            <p>Pressure</p>
+            <img src="./images/Pressure.png" id="pressureImg" />
+            <p id="pressureIndicator"></p>
+          </div>
+          <div class="small-box">
+            <p>Humidity</p>
+            <img src="./images/Humidity.png" id="humidityImg" />
+            <p id="humidityIndicator"></p>
           </div>
         </div>
-      </nav>
-    </section>
+      </section>
 
-    <!-- Today's forecast -->
-    <section class="today-forecast">
-      <div class="full-box">
-        <h2 id="CurentCityName">City Name</h2>
-        <div id="CurentBox">
-          <img src="" id="CurentIcon" />
-          <p id="CurentTemp">0℃</p>
-        </div>
-        <h4 id="CurentWeather"></h4>
-      </div>
-      <div class="small-boxes">
-        <div class="small-box">
-          <p>UV</p>
-          <img src="./images/UV.png" id="uvImg" />
-          <p id="uvIndicator"></p>
-        </div>
-        <div class="small-box">
-          <p>Wind</p>
-          <img src="./images/Wind.png" id="windImg" />
-          <p id="windIndicator"></p>
-        </div>
-        <div class="small-box">
-          <p>Pressure</p>
-          <img src="./images/Pressure.png" id="pressureImg" />
-          <p id="pressureIndicator"></p>
-        </div>
-        <div class="small-box">
-          <p>Humidity</p>
-          <img src="./images/Humidity.png" id="humidityImg" />
-          <p id="humidityIndicator"></p>
-        </div>
-      </div>
-    </section>
+      <!-- Hourly forecast -->
+      <section class="hourly-forecast">
+        <div class="long-box" id="hourly-forecast-container"></div>
+      </section>
 
-    <!-- Hourly forecast -->
-    <section class="hourly-forecast">
-      <div class="long-box" id="hourly-forecast-container"></div>
-    </section>
-
-    <!-- Daily forecast -->
-    <section class="daily-forecast">
-      <div class="long-box" id="daily-forecast-container"></div>
-    </section>
+      <!-- Daily forecast -->
+      <section class="daily-forecast">
+        <div class="long-box" id="daily-forecast-container"></div>
+      </section>
+    </div>
   </body>
 </html>
