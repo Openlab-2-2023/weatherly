@@ -73,8 +73,8 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
     // Zfiltrujeme hodnoty podla toho, aka hodina je a ktore ostavaju z dna
     const filteredHourlyData = hourlyData.filter((hour) => {
-      const hourTime = parseInt(hour.time.split(" ")[1].split(":")[0]); // Extract the hour part
-      return hourTime >= currentTime && hourTime < currentTime + 8; // Filter for the next 7 hours
+      const hourTime = parseInt(hour.time.split(" ")[1].split(":")[0]);
+      return hourTime >= currentTime && hourTime < currentTime + 8;
     });
 
     const hourlyForecastContainer = document.getElementById(
