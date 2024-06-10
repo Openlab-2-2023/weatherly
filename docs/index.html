@@ -6,6 +6,7 @@
     <title>Weatherly</title>
     <link rel="icon" type="image/png" href="./images/icons/day/113.png" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resp.css" />
     <script src="script.js" defer></script>
   </head>
 
@@ -18,6 +19,7 @@
           <button class="search-icon">
             <img src="images/search.svg" alt="" />
           </button>
+          <div class="clock" id="clock"></div>
         </div>
         <div class="dropdown">
           <button class="dropbtn">Languages</button>
@@ -36,7 +38,7 @@
         <h2 id="CurentCityName">City Name</h2>
         <div id="CurentBox">
           <img src="" id="CurentIcon" />
-          <p id="CurentTemp">-:-℃</p>
+          <p id="CurentTemp">0℃</p>
         </div>
         <h4 id="CurentWeather"></h4>
       </div>
@@ -44,82 +46,34 @@
         <div class="small-box">
           <p>UV</p>
           <img src="./images/UV.png" id="uvImg" />
-          <p id="uvIndicator">-:-</p>
+          <p id="uvIndicator"></p>
         </div>
         <div class="small-box">
           <p>Wind</p>
           <img src="./images/Wind.png" id="windImg" />
-          <p id="windIndicator">-:-</p>
+          <p id="windIndicator"></p>
         </div>
         <div class="small-box">
           <p>Pressure</p>
           <img src="./images/Pressure.png" id="pressureImg" />
-          <p id="pressureIndicator">-:-</p>
+          <p id="pressureIndicator"></p>
         </div>
         <div class="small-box">
           <p>Humidity</p>
           <img src="./images/Humidity.png" id="humidityImg" />
-          <p id="humidityIndicator">-:-</p>
+          <p id="humidityIndicator"></p>
         </div>
       </div>
     </section>
 
     <!-- Hourly forecast -->
     <section class="hourly-forecast">
-      <div class="long-box">
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-        <div class="hour-box">
-          <p class="HourTime">12:00</p>
-          <img src="./images/icons/day/113.png" class="IconHourIcon" />
-          <p class="iconHourTemp">20℃</p>
-        </div>
-      </div>
+      <div class="long-box" id="hourly-forecast-container"></div>
     </section>
 
     <!-- Daily forecast -->
     <section class="daily-forecast">
-      <div class="large-box">Day 1</div>
-      <div class="large-box">Day 2</div>
-      <div class="large-box">Day 3</div>
-      <div class="large-box">
-        Day 4 <br />
-        <br /><br /><br /><br /><br />
-        See more
-      </div>
+      <div class="long-box" id="daily-forecast-container"></div>
     </section>
   </body>
 </html>
