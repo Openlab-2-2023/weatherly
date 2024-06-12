@@ -66,7 +66,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
   // Vyberanie dat z toho .json suboru:
   const temperature = data.current.temp_c;
-  document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
+  document.getElementById("CurentTemp").textContent = ` ${temperature} °C`;
 
   const CityName = data.location.name;
   const Country = data.location.country;
@@ -78,11 +78,11 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   const UvIndicator = data.current.uv;
   document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
   const windIndicator = data.current.wind_kph;
-  document.getElementById("windIndicator").textContent = ` ${windIndicator}kph`;
+  document.getElementById("windIndicator").textContent = ` ${windIndicator} kph`;
   const pressureIndicator = data.current.pressure_mb;
-  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator}hPa`;
+  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator} hPa`;
   const humidityIndicator = data.current.humidity;
-  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator}%`;
+  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator} %`;
   const weatherfure1 = data1.forecast.forecastday.date;
   document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
 
@@ -91,15 +91,21 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   try {
     // Vezmeme vsetky hodinove hodnoty co maju byt dnes
     const hourlyData = data1.forecast.forecastday[0].hour;
+    const hourlyDataNextDay = data1.forecast.forecastday[1].hour;
 
     // Momentalna hodina
     const currentTime = new Date().getHours();
 
     // Zfiltrujeme hodnoty podla toho, aka hodina je a ktore ostavaju z dna
-    const filteredHourlyData = hourlyData.filter((hour) => {
+    let filteredHourlyData = hourlyData.filter((hour) => {
       const hourTime = parseInt(hour.time.split(" ")[1].split(":")[0]);
-      return hourTime >= currentTime && hourTime < currentTime + 8;
+      return hourTime >= currentTime;
     });
+
+    if (filteredHourlyData.length < 8) {
+      const remainingHours = 8 - filteredHourlyData.length;
+      filteredHourlyData = filteredHourlyData.concat(hourlyDataNextDay.slice(0, remainingHours));
+    }
 
     const hourlyForecastContainer = document.getElementById("hourly-forecast-container");
 
@@ -107,6 +113,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
     filteredHourlyData.forEach((hour, index) => {
       const time = hour.time.split(" ")[1]; // Zoberieme iba cas, bez datumu
       const icon = hour.condition.icon.replace("/images/");
+      const condition = hour.condition.text;
       const tempC = hour.temp_c;
 
       // Zadanie hodnot do boxu
@@ -116,6 +123,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
       hourBox.innerHTML = `
         <p class="HourTime">${time}</p>
         <img src="${icon}" class="IconHourIcon" />
+        <p>${condition}</p>
         <p class="iconHourTemp">${tempC}℃</p>
       `;
 
@@ -125,10 +133,34 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   } catch (error) {
     console.error("Error fetching weather data:", error);
   }
-});
 
-try {
-  const dailyData = data1.forecast.forecastday;
-} catch (error) {
-  console.error("Error fetching weather data:", error);
-}
+  try {
+    const dailyData = data1.forecast.forecastday;
+
+    const day1Box = document.getElementById("day1");
+    const day2Box = document.getElementById("day2");
+    const day3Box = document.getElementById("day3");
+
+    const displayDayForecast = (dayBox, dayData, dayLabels) => {
+      const date = dayData.date;
+      const condition = dayData.day.condition.text;
+      const maxTempC = dayData.day.maxtemp_c;
+      const icon = dayData.day.condition.icon.replace("/images/");
+
+      dayBox.innerHTML = `
+        <p class="DayDate">${date}</p>
+        <img src="${icon}" class="IconDayIcon" />
+        <p class="iconDayCondition">${condition}</p>
+        <p class="iconDayMaxTemp">${maxTempC}℃</p>
+      `;
+    };
+
+    displayDayForecast(day1Box, dailyData[0], "Today");
+    displayDayForecast(day2Box, dailyData[1], "Tomorrow");
+    displayDayForecast(day3Box, dailyData[2], "In 3 days");
+
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
+
+});

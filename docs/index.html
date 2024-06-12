@@ -15,8 +15,7 @@
       <div class="spinner"></div>
       <p>Loading...</p>
     </div>
-    <div id="content" style="display: none">
-      <!-- Obsah stránky -->
+    <div id="content" style="display: none">  
       <!-- Navbar -->
       <section>
         <nav>
@@ -31,7 +30,7 @@
             <button class="dropbtn">Languages</button>
             <div class="dropdown-content">
               <a href="index.html">English</a>
-              <a href="SK.html">Slovak</a>
+              <a href="SK.html">Slovak <img src="sk.png" alt=""></a>
             </div>
           </div>
         </nav>
@@ -49,7 +48,7 @@
         </div>
         <div class="small-boxes">
           <div class="small-box">
-            <p>UV</p>
+            <p>UV index</p>
             <img src="./images/UV.png" id="uvImg" />
             <p id="uvIndicator"></p>
           </div>
@@ -78,13 +77,11 @@
 
       <!-- Daily forecast -->
       <section class="daily-forecast">
-        <div class="large-box">Day 1</div>
-        <div class="large-box">Day 2</div>
-        <div class="large-box">Day 3</div>
-        <div class="large-box">
-          Day 4 <br />
-          <br /><br /><br /><br /><br />
-          See more
+        <div class="large-box" id="day1">Tomorrow</div>
+        <div class="large-box" id="day2"></div>
+        <div class="large-box" id="day3"></div>
+        <div class="large-box" id="day4">
+          <button class="dropbtn">See more</button>
         </div>
       </section>
     </div>
