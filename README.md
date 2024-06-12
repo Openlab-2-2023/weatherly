@@ -1,14 +1,10 @@
+###Weatherly
+
 
 # Weatherly app
 Weatherly is a great weather app without those anoying ads. 
 
+## Made by
 
-## Documentation
-
-[Documentation](https://linktodocumentation)
-
-
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
+- martin852147
+- UserB3nj4m1n
