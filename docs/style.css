@@ -106,6 +106,7 @@ nav {
 
 #CurentCityName {
   margin: 0;
+  font-size: 30px;
 }
 
 #CurentBox {
@@ -264,4 +265,8 @@ nav {
   100% {
     transform: rotate(360deg);
   }
+}
+
+::-webkit-scrollbar {
+  width: 0;
 }

@@ -13,9 +13,7 @@ function updateClock() {
     hour: "2-digit",
     minute: "2-digit",
   };
-  const formattedDate = now
-    .toLocaleDateString("en-US", options)
-    .replace(",", "");
+  const formattedDate = now.toLocaleDateString("en-US", options).replace(",", "");
 
   document.getElementById("clock").textContent = formattedDate;
 }
@@ -28,9 +26,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   const { latitude, longitude } = position.coords;
   // Skladanie a zasielanie HTTPS requestu pre data do API:
   const apiKey = "a5e9e2ff64c04ebf84761702242805";
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`
-  );
+  const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`);
   const data = await response.json();
   const response1 = await fetch(
     `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
@@ -42,7 +38,8 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
 
   const CityName = data.location.name;
-  document.getElementById("CurentCityName").textContent = ` ${CityName}`;
+  const Country = data.location.country;
+  document.getElementById("CurentCityName").textContent = ` ${CityName}, ${Country}`;
 
   const CurentWeather = data.current.condition.text;
   document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
@@ -57,14 +54,10 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   document.getElementById("windIndicator").textContent = ` ${windIndicator}`;
 
   const pressureIndicator = data.current.pressure_mb;
-  document.getElementById(
-    "pressureIndicator"
-  ).textContent = ` ${pressureIndicator}hPa`;
+  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator}hPa`;
 
   const humidityIndicator = data.current.humidity;
-  document.getElementById(
-    "humidityIndicator"
-  ).textContent = ` ${humidityIndicator}`;
+  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator}`;
 
   const weatherfure1 = data1.forecast.forecastday.date;
   document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
@@ -84,9 +77,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
       return hourTime >= currentTime && hourTime < currentTime + 8;
     });
 
-    const hourlyForecastContainer = document.getElementById(
-      "hourly-forecast-container"
-    );
+    const hourlyForecastContainer = document.getElementById("hourly-forecast-container");
 
     // Vytvorime HTML Hodnoty pre boxy pomocou cyklu
     filteredHourlyData.forEach((hour, index) => {
