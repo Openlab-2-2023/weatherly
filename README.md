@@ -1,5 +1,3 @@
-###Weatherly
-
 
 # Weatherly app
 Weatherly is a great weather app without those anoying ads. 
