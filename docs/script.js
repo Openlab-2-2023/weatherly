@@ -1,9 +1,13 @@
+//Loading Screen
+
 document.addEventListener("DOMContentLoaded", function () {
   setTimeout(function () {
     document.getElementById("loading-screen").style.display = "none";
     document.getElementById("content").style.display = "block";
   }, 200);
 });
+
+//Hodiny (Navbar)
 
 function updateClock() {
   const now = new Date();
@@ -21,14 +25,14 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Function to fetch and update weather data for a given city
+// Funkcia na načítanie a aktualizáciu údajov o počasí pre dané mesto
 async function fetchAndUpdateWeatherData(city) {
   try {
     const apiKey = "a5e9e2ff64c04ebf84761702242805";
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
     const data = await response.json();
 
-    // Update the HTML with the new weather data
+    // Aktualizujte HTML s novými údajmi o počasí
     document.getElementById("CurentCityName").textContent = `${data.location.name}, ${data.location.country}`;
     document.getElementById("CurentTemp").textContent = `${data.current.temp_c}°C`;
     document.getElementById("CurentWeather").textContent = `${data.current.condition.text}`;
@@ -42,9 +46,9 @@ async function fetchAndUpdateWeatherData(city) {
   }
 }
 
-document.querySelector('.search-button').addEventListener('click', async () => {
-  const cityName = document.querySelector('.search-input').value;
-  document.querySelector('.search-input').value = '';
+document.querySelector(".search-button").addEventListener("click", async () => {
+  const cityName = document.querySelector(".search-input").value;
+  document.querySelector(".search-input").value = "";
   await fetchAndUpdateWeatherData(cityName);
 });
 
