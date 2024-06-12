@@ -52,12 +52,12 @@ nav {
   display: block;
 }
 
-.searchbar {
+.search-container {
   display: flex;
   width: 100%;
 }
 
-.searchbar input[type="text"] {
+.search-container input[type="text"] {
   padding: 3px 15px;
   font-size: 1.5rem;
   border: none;
@@ -66,7 +66,7 @@ nav {
   width: 40%;
 }
 
-.searchbar .search-icon {
+.search-container .search-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,7 +80,7 @@ nav {
   box-sizing: border-box;
 }
 
-.search-icon img {
+.search-button img {
   max-width: 60%;
   height: auto;
 }
@@ -129,19 +129,18 @@ nav {
 }
 
 .small-boxes {
-  flex: 1 0 52%;
+  flex: 1 0 50%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .small-box {
-  flex: 1 0 calc(45% - 10px);
+  flex: 1 0 40%;
   margin: 5px;
   background: rgba(213, 237, 255, 0.5);
   padding: 10px;
   border-radius: 14px;
-  height: 100px;
   text-align: center;
 }
 
@@ -207,7 +206,7 @@ nav {
 }
 
 #windIndicator {
-  margin-top: -5px;
+  margin-top: 0px;
 }
 
 #pressureImg {
@@ -225,7 +224,7 @@ nav {
 }
 
 #humidityIndicator {
-  margin-top: -5px;
+  margin-top: 5px;
 }
 
 .clock {

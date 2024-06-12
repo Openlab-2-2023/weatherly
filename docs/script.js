@@ -21,6 +21,33 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// Function to fetch and update weather data for a given city
+async function fetchAndUpdateWeatherData(city) {
+  try {
+    const apiKey = "a5e9e2ff64c04ebf84761702242805";
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
+    const data = await response.json();
+
+    // Update the HTML with the new weather data
+    document.getElementById("CurentCityName").textContent = `${data.location.name}, ${data.location.country}`;
+    document.getElementById("CurentTemp").textContent = `${data.current.temp_c}°C`;
+    document.getElementById("CurentWeather").textContent = `${data.current.condition.text}`;
+    document.getElementById("CurentIcon").src = `${data.current.condition.icon}`;
+    document.getElementById("uvIndicator").textContent = `${data.current.uv}`;
+    document.getElementById("windIndicator").textContent = `${data.current.wind_kph} kph`;
+    document.getElementById("pressureIndicator").textContent = `${data.current.pressure_mb} hPa`;
+    document.getElementById("humidityIndicator").textContent = `${data.current.humidity}%`;
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
+}
+
+document.querySelector('.search-button').addEventListener('click', async () => {
+  const cityName = document.querySelector('.search-input').value;
+  document.querySelector('.search-input').value = '';
+  await fetchAndUpdateWeatherData(cityName);
+});
+
 // Povolenie pre pristup polohy:
 navigator.geolocation.getCurrentPosition(async (position) => {
   const { latitude, longitude } = position.coords;
@@ -40,25 +67,18 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   const CityName = data.location.name;
   const Country = data.location.country;
   document.getElementById("CurentCityName").textContent = ` ${CityName}, ${Country}`;
-
   const CurentWeather = data.current.condition.text;
   document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
-
   const IconCurent = data.current.condition.icon;
   document.getElementById("CurentIcon").src = ` ${IconCurent}`;
-
   const UvIndicator = data.current.uv;
   document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
-
   const windIndicator = data.current.wind_kph;
-  document.getElementById("windIndicator").textContent = ` ${windIndicator}`;
-
+  document.getElementById("windIndicator").textContent = ` ${windIndicator}kph`;
   const pressureIndicator = data.current.pressure_mb;
   document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator}hPa`;
-
   const humidityIndicator = data.current.humidity;
-  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator}`;
-
+  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator}%`;
   const weatherfure1 = data1.forecast.forecastday.date;
   document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
 
@@ -102,3 +122,9 @@ navigator.geolocation.getCurrentPosition(async (position) => {
     console.error("Error fetching weather data:", error);
   }
 });
+
+try {
+  const dailyData = data1.forecast.forecastday;
+} catch (error) {
+  console.error("Error fetching weather data:", error);
+}
