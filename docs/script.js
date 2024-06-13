@@ -97,9 +97,9 @@ navigator.geolocation.getCurrentPosition(async (position) => {
     const currentTime = new Date().getHours();
 
     // Zfiltrujeme hodnoty podla toho, aka hodina je a ktore ostavaju z dna
-    let filteredHourlyData = hourlyData.filter((hour) => {
-      const hourTime = parseInt(hour.time.split(" ")[1].split(":")[0]);
-      return hourTime >= currentTime;
+    let filteredHourlyData = hourlyData.filter((hour, index) => {
+      const hourTime = parseInt(hour.time.split(":")[0]);
+      return hourTime >= currentTime && index < 8;
     });
 
     if (filteredHourlyData.length < 8) {
