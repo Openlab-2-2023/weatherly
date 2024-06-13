@@ -100,13 +100,43 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
       hourBox.innerHTML = `
         <p class="HourTime">${time}</p>
-        <img src="${icon}" class="IconHourIcon" /><br><br><br>
-        <p class="iconHourTemp">${tempC}℃</p> 
+        <img src="${icon}" class="IconHourIcon" />
+        <p class="iconHourTemp">${tempC}℃</p>
       `;
 
       // Odoslanie boxov do HTML
       hourlyForecastContainer.appendChild(hourBox);
     });
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
+
+
+  try {
+    const dailyData = data1.forecast.forecastday;
+
+    const day1Box = document.getElementById("day1");
+    const day2Box = document.getElementById("day2");
+    const day3Box = document.getElementById("day3");
+
+    const displayDayForecast = (dayBox, dayData, dayLabels) => {
+      const date = dayData.date;
+      const condition = dayData.day.condition.text;
+      const maxTempC = dayData.day.maxtemp_c;
+      const icon = dayData.day.condition.icon.replace("/images/");
+
+      dayBox.innerHTML = `
+      <p class="DayDate">${date}</p>
+      <img src="${icon}" class="IconDayIcon" />
+      <p class="iconDayCondition">${condition}</p>
+      <p class="iconDayMaxTemp">${maxTempC}℃</p>
+    `;
+    };
+
+    displayDayForecast(day1Box, dailyData[0], "Today");
+    displayDayForecast(day2Box, dailyData[1], "Tomorrow");
+    displayDayForecast(day3Box, dailyData[2], "In 3 days");
+
   } catch (error) {
     console.error("Error fetching weather data:", error);
   }
