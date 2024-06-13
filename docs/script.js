@@ -23,6 +23,33 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// Function to fetch and update weather data for a given city
+async function fetchAndUpdateWeatherData(city) {
+  try {
+    const apiKey = "a5e9e2ff64c04ebf84761702242805";
+    const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
+    const data = await response.json();
+
+    // Update the HTML with the new weather data
+    document.getElementById("CurentCityName").textContent = `${data.location.name}, ${data.location.country}`;
+    document.getElementById("CurentTemp").textContent = `${data.current.temp_c}°C`;
+    document.getElementById("CurentWeather").textContent = `${data.current.condition.text}`;
+    document.getElementById("CurentIcon").src = `${data.current.condition.icon}`;
+    document.getElementById("uvIndicator").textContent = `${data.current.uv}`;
+    document.getElementById("windIndicator").textContent = `${data.current.wind_kph} kph`;
+    document.getElementById("pressureIndicator").textContent = `${data.current.pressure_mb} hPa`;
+    document.getElementById("humidityIndicator").textContent = `${data.current.humidity}%`;
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
+}
+
+document.querySelector('.search-button').addEventListener('click', async () => {
+  const cityName = document.querySelector('.search-input').value;
+  document.querySelector('.search-input').value = '';
+  await fetchAndUpdateWeatherData(cityName);
+});
+
 // Povolenie pre pristup polohy:
 navigator.geolocation.getCurrentPosition(async (position) => {
   const { latitude, longitude } = position.coords;
