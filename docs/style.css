@@ -74,7 +74,6 @@ nav {
   transform: translateY(0);
 }
 
-
 .search-container {
   display: flex;
   width: 100%;
@@ -295,7 +294,11 @@ nav {
   width: 0;
 }
 
-#day4{
+#day4 {
   display: flex;
   flex-direction: column;
+}
+
+.iconHourTemp {
+  margin-top: 20px;
 }
