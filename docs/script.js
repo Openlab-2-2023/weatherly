@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(function () {
     document.getElementById("loading-screen").style.display = "none";
     document.getElementById("content").style.display = "block";
-  }, 500);
+  }, 2200);
 });
 
 function updateClock() {
@@ -77,7 +77,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
 
   const windIndicator = data.current.wind_kph;
-  document.getElementById("windIndicator").textContent = ` ${windIndicator}`;
+  document.getElementById("windIndicator").textContent = ` ${windIndicator}kph`;
 
   const pressureIndicator = data.current.pressure_mb;
   document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator}hPa`;
@@ -140,15 +140,32 @@ navigator.geolocation.getCurrentPosition(async (position) => {
       const condition = dayData.day.condition.text;
       const maxTempC = dayData.day.maxtemp_c;
       const icon = dayData.day.condition.icon.replace("/images/");
-
+      //////////////////////////////////////////--Dorobit--//////////////////////////////////////////////////////////////////
       dayBox.innerHTML = `
-      <p class="DayDate">${date}</p>
-      <img src="${icon}" class="IconDayIcon" />
-      <p class="iconDayCondition">${condition}</p>
-      <p class="iconDayMaxTemp">${maxTempC}℃</p>
+          <table>
+            <tr>
+              <td><p class="DayDate">${date}</p></td>
+              <td rowspan="4" class="nextInfo">
+                <p>Wind: ${wind_kph} kph</p>
+                <p>Rain: ${chance_of_rain}%</p>
+                <p>Humidity: ${humidity}</p>
+                <p>UV:${uv}</p>
+              </td>
+            </tr>
+            <tr>
+              <td><img src="${icon}" class="IconDayIcon" /></td>
+            </tr>
+            <tr>
+              <td><p class="iconDayCondition">${condition}</p></td>
+            </tr>
+            <tr>
+              <td><p class="iconDayMaxTemp">${maxTempC}℃</p></td>
+            </tr>
+          </table>
+
     `;
     };
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     displayDayForecast(day1Box, dailyData[0], "Today");
     displayDayForecast(day2Box, dailyData[1], "Tomorrow");
     displayDayForecast(day3Box, dailyData[2], "In 3 days");
