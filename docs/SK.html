@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,10 +13,9 @@
   <body>
     <div id="loading-screen">
       <div class="spinner"></div>
-      <p>Načítavanie...</p>
+      <p>Loading...</p>
     </div>
     <div id="content" style="display: none">
-      <!-- Obsah stránky -->
       <!-- Navbar -->
       <section>
         <nav>
@@ -28,10 +27,10 @@
             <div class="clock" id="clock"></div>
           </div>
           <div class="dropdown">
-            <button class="dropbtn">Jazyky</button>
+            <button class="dropbtn">Languages</button>
             <div class="dropdown-content">
-              <a href="index.html">Angličtina</a>
-              <a href="S">Slovensky</a>
+              <a href="index.html">English</a>
+              <a href="SK.html">Slovak <img src="sk.png" alt="" /></a>
             </div>
           </div>
         </nav>
@@ -51,21 +50,25 @@
           <div class="small-box">
             <p>UV</p>
             <img src="./images/UV.png" id="uvImg" />
+            <br />
             <p id="uvIndicator"></p>
           </div>
           <div class="small-box">
             <p>Vietor</p>
             <img src="./images/Wind.png" id="windImg" />
+            <br />
             <p id="windIndicator"></p>
           </div>
           <div class="small-box">
             <p>Tlak</p>
             <img src="./images/Pressure.png" id="pressureImg" />
+            <br />
             <p id="pressureIndicator"></p>
           </div>
           <div class="small-box">
             <p>Vlhkosť</p>
             <img src="./images/Humidity.png" id="humidityImg" />
+            <br />
             <p id="humidityIndicator"></p>
           </div>
         </div>
@@ -78,15 +81,15 @@
 
       <!-- Daily forecast -->
       <section class="daily-forecast">
-        <div class="large-box">Day 1</div>
-        <div class="large-box">Day 2</div>
-        <div class="large-box">Day 3</div>
-        <div class="large-box">
-          Day 4 <br />
-          <br /><br /><br /><br /><br />
-          Viac
-        </div>
+        <div class="large-box" id="day1"></div>
+        <div class="large-box" id="day2"></div>
+        <div class="large-box" id="day3"></div>
       </section>
+      <div id="footer">
+        <p id="footerP">
+          Weatherly poháňané <a href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a>
+        </p>
+      </div>
     </div>
   </body>
 </html>
