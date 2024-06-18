@@ -50,21 +50,25 @@
           <div class="small-box">
             <p>UV index</p>
             <img src="./images/UV.png" id="uvImg" />
+            <br />
             <p id="uvIndicator"></p>
           </div>
           <div class="small-box">
             <p>Wind</p>
             <img src="./images/Wind.png" id="windImg" />
+            <br />
             <p id="windIndicator"></p>
           </div>
           <div class="small-box">
             <p>Pressure</p>
             <img src="./images/Pressure.png" id="pressureImg" />
+            <br />
             <p id="pressureIndicator"></p>
           </div>
           <div class="small-box">
             <p>Humidity</p>
             <img src="./images/Humidity.png" id="humidityImg" />
+            <br />
             <p id="humidityIndicator"></p>
           </div>
         </div>
@@ -80,28 +84,6 @@
         <div class="large-box" id="day1"></div>
         <div class="large-box" id="day2"></div>
         <div class="large-box" id="day3"></div>
-        <div class="large-box" id="day4">
-          <table>
-            <tr>
-              <td><p class="DayDate">${date}</p></td>
-              <td rowspan="4" class="nextInfo">
-                <p>Wind: ${wind_kph} kph</p>
-                <p>Rain: ${chance_of_rain}%</p>
-                <p>Humidity: ${humidity}</p>
-                <p>UV:${uv}</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img src="${icon}" class="IconDayIcon" /></td>
-            </tr>
-            <tr>
-              <td><p class="iconDayCondition">${condition}</p></td>
-            </tr>
-            <tr>
-              <td><p class="iconDayMaxTemp">${maxTempC}℃</p></td>
-            </tr>
-          </table>
-        </div>
       </section>
       <div id="footer">
         <p id="footerP">

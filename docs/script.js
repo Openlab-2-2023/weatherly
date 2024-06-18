@@ -77,13 +77,13 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
 
   const windIndicator = data.current.wind_kph;
-  document.getElementById("windIndicator").textContent = ` ${windIndicator}kph`;
+  document.getElementById("windIndicator").textContent = ` ${windIndicator} km/h`;
 
   const pressureIndicator = data.current.pressure_mb;
-  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator}hPa`;
+  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator} hPa`;
 
   const humidityIndicator = data.current.humidity;
-  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator}`;
+  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator} %`;
 
   const weatherfure1 = data1.forecast.forecastday.date;
   document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
@@ -140,16 +140,20 @@ navigator.geolocation.getCurrentPosition(async (position) => {
       const condition = dayData.day.condition.text;
       const maxTempC = dayData.day.maxtemp_c;
       const icon = dayData.day.condition.icon.replace("/images/");
-      //////////////////////////////////////////--Dorobit--//////////////////////////////////////////////////////////////////
+      const windT = dayData.day.maxwind_kph;
+      const chanceOfRain = dayData.day.daily_chance_of_rain;
+      const humidity1 = dayData.day.avghumidity;
+      const uv1 = dayData.day.uv;
+
       dayBox.innerHTML = `
           <table>
             <tr>
               <td><p class="DayDate">${date}</p></td>
               <td rowspan="4" class="nextInfo">
-                <p>Wind: ${wind_kph} kph</p>
-                <p>Rain: ${chance_of_rain}%</p>
-                <p>Humidity: ${humidity}</p>
-                <p>UV:${uv}</p>
+                <p class="infoDet">Wind: ${windT} km/h</p>
+                <p class="infoDet">Rain: ${chanceOfRain}%</p>
+                <p class="infoDet">Humidity: ${humidity1}</p>
+                <p class="infoDet">UV: ${uv1}</p>
               </td>
             </tr>
             <tr>
@@ -165,7 +169,6 @@ navigator.geolocation.getCurrentPosition(async (position) => {
 
     `;
     };
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     displayDayForecast(day1Box, dailyData[0], "Today");
     displayDayForecast(day2Box, dailyData[1], "Tomorrow");
     displayDayForecast(day3Box, dailyData[2], "In 3 days");

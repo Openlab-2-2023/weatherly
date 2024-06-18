@@ -314,12 +314,17 @@ nav {
   padding-top: 6px;
 }
 
-table,
-th,
-td {
-  border: 1px solid black;
+table {
+  margin-top: -15px;
+  margin-left: 20px;
 }
 
 .nextInfo {
-  width: 100px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.infoDet {
+  margin-left: 60px;
+  text-align: center;
 }
