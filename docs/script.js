@@ -21,22 +21,15 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
-// Function to fetch and update weather data for a given city
+
 async function fetchAndUpdateWeatherData(city) {
   try {
     const apiKey = "a5e9e2ff64c04ebf84761702242805";
     const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
     const data = await response.json();
-
-    // Update the HTML with the new weather data
-    document.getElementById("CurentCityName").textContent = `${data.location.name}, ${data.location.country}`;
-    document.getElementById("CurentTemp").textContent = `${data.current.temp_c}°C`;
-    document.getElementById("CurentWeather").textContent = `${data.current.condition.text}`;
-    document.getElementById("CurentIcon").src = `${data.current.condition.icon}`;
-    document.getElementById("uvIndicator").textContent = `${data.current.uv}`;
-    document.getElementById("windIndicator").textContent = `${data.current.wind_kph} kph`;
-    document.getElementById("pressureIndicator").textContent = `${data.current.pressure_mb} hPa`;
-    document.getElementById("humidityIndicator").textContent = `${data.current.humidity}%`;
+    const response1 = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=3`);
+    const data1 = await response1.json();
+    sendData(data, data1);
   } catch (error) {
     console.error("Error fetching weather data:", error);
   }
@@ -56,41 +49,41 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`);
   const data = await response.json();
   const response1 = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
-  );
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`);
   const data1 = await response1.json();
+  sendData(data, data1);
+});
 
-  // Vyberanie dat z toho .json suboru:
-  const temperature = data.current.temp_c;
-  document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
+  function sendData(data, data1) {
+    // Vyberanie dat z toho .json suboru:
+    const temperature = data.current.temp_c;
+    document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
 
-  const CityName = data.location.name;
-  document.getElementById("CurentCityName").textContent = ` ${CityName}`;
+    const CityName = data.location.name;
+    document.getElementById("CurentCityName").textContent = ` ${CityName}`;
 
-  const CurentWeather = data.current.condition.text;
-  document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
+    const CurentWeather = data.current.condition.text;
+    document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
 
-  const IconCurent = data.current.condition.icon;
-  document.getElementById("CurentIcon").src = ` ${IconCurent}`;
+    const IconCurent = data.current.condition.icon;
+    document.getElementById("CurentIcon").src = ` ${IconCurent}`;
 
-  const UvIndicator = data.current.uv;
-  document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
+    const UvIndicator = data.current.uv;
+    document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
 
-  const windIndicator = data.current.wind_kph;
-  document.getElementById("windIndicator").textContent = ` ${windIndicator} km/h`;
+    const windIndicator = data.current.wind_kph;
+    document.getElementById("windIndicator").textContent = ` ${windIndicator} km/h`;
 
-  const pressureIndicator = data.current.pressure_mb;
-  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator} hPa`;
+    const pressureIndicator = data.current.pressure_mb;
+    document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator} hPa`;
 
-  const humidityIndicator = data.current.humidity;
-  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator} %`;
+    const humidityIndicator = data.current.humidity;
+    document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator} %`;
 
-  const weatherfure1 = data1.forecast.forecastday.date;
-  document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
+    const weatherfure1 = data1.forecast.forecastday.date;
+    document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
 
-  ////////////////////////////////////////////////////////////////
 
-  try {
     // Vezmeme vsetky hodinove hodnoty co maju byt dnes
     const hourlyData = data1.forecast.forecastday[0].hour;
 
@@ -104,6 +97,7 @@ navigator.geolocation.getCurrentPosition(async (position) => {
     });
 
     const hourlyForecastContainer = document.getElementById("hourly-forecast-container");
+    document.getElementById("hourly-forecast-container").innerHTML = "";
 
     // Vytvorime HTML Hodnoty pre boxy pomocou cyklu
     filteredHourlyData.forEach((hour, index) => {
@@ -116,19 +110,16 @@ navigator.geolocation.getCurrentPosition(async (position) => {
       hourBox.className = "hour-box";
 
       hourBox.innerHTML = `
-        <p class="HourTime">${time}</p>
-        <img src="${icon}" class="IconHourIcon" />
-        <p class="iconHourTemp">${tempC}℃</p>
-      `;
+          <p class="HourTime">${time}</p>
+          <img src="${icon}" class="IconHourIcon" />
+          <p class="iconHourTemp">${tempC}℃</p>
+        `;
 
       // Odoslanie boxov do HTML
       hourlyForecastContainer.appendChild(hourBox);
     });
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
-  }
 
-  try {
+    
     const dailyData = data1.forecast.forecastday;
 
     const day1Box = document.getElementById("day1");
@@ -146,33 +137,30 @@ navigator.geolocation.getCurrentPosition(async (position) => {
       const uv1 = dayData.day.uv;
 
       dayBox.innerHTML = `
-          <table>
-            <tr>
-              <td><p class="DayDate">${date}</p></td>
-              <td rowspan="4" class="nextInfo">
-                <p class="infoDet">Wind: ${windT} km/h</p>
-                <p class="infoDet">Rain: ${chanceOfRain}%</p>
-                <p class="infoDet">Humidity: ${humidity1}</p>
-                <p class="infoDet">UV: ${uv1}</p>
-              </td>
-            </tr>
-            <tr>
-              <td><img src="${icon}" class="IconDayIcon" /></td>
-            </tr>
-            <tr>
-              <td><p class="iconDayCondition">${condition}</p></td>
-            </tr>
-            <tr>
-              <td><p class="iconDayMaxTemp">${maxTempC}℃</p></td>
-            </tr>
-          </table>
+        <table>
+          <tr>
+            <td><p class="DayDate">${date}</p></td>
+            <td rowspan="4" class="nextInfo">
+              <p class="infoDet">Wind: ${windT} km/h</p>
+              <p class="infoDet">Rain: ${chanceOfRain}%</p>
+              <p class="infoDet">Humidity: ${humidity1}</p>
+              <p class="infoDet">UV: ${uv1}</p>
+            </td>
+          </tr>
+          <tr>
+            <td><img src="${icon}" class="IconDayIcon" /></td>
+          </tr>
+          <tr>
+            <td><p class="iconDayCondition">${condition}</p></td>
+          </tr>
+          <tr>
+            <td><p class="iconDayMaxTemp">${maxTempC}℃</p></td>
+          </tr>
+        </table>
 
-    `;
+  `;
     };
     displayDayForecast(day1Box, dailyData[0], "Today");
     displayDayForecast(day2Box, dailyData[1], "Tomorrow");
     displayDayForecast(day3Box, dailyData[2], "In 3 days");
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
   }
-});
