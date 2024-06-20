@@ -24,4 +24,8 @@
   .daily-forecast {
     flex-direction: column;
   }
+
+  .long-box {
+    overflow: hidden;
+  }
 }

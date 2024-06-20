@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setTimeout(function () {
     document.getElementById("loading-screen").style.display = "none";
     document.getElementById("content").style.display = "block";
-  }, 2200);
+  }, 2000);
 });
 
 function updateClock() {
@@ -20,7 +20,6 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock();
-
 
 async function fetchAndUpdateWeatherData(city) {
   try {
@@ -49,101 +48,99 @@ navigator.geolocation.getCurrentPosition(async (position) => {
   const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${latitude},${longitude}`);
   const data = await response.json();
   const response1 = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`);
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
+  );
   const data1 = await response1.json();
   sendData(data, data1);
 });
 
-  function sendData(data, data1) {
-    // Vyberanie dat z toho .json suboru:
-    const temperature = data.current.temp_c;
-    document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
+function sendData(data, data1) {
+  // Vyberanie dat z toho .json suboru:
+  const temperature = data.current.temp_c;
+  document.getElementById("CurentTemp").textContent = ` ${temperature}°C`;
 
-    const CityName = data.location.name;
-    document.getElementById("CurentCityName").textContent = ` ${CityName}`;
+  document.getElementById("CurentCityName").textContent = `${data.location.name}, ${data.location.country}`;
 
-    const CurentWeather = data.current.condition.text;
-    document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
+  const CurentWeather = data.current.condition.text;
+  document.getElementById("CurentWeather").textContent = ` ${CurentWeather}`;
 
-    const IconCurent = data.current.condition.icon;
-    document.getElementById("CurentIcon").src = ` ${IconCurent}`;
+  const IconCurent = data.current.condition.icon;
+  document.getElementById("CurentIcon").src = ` ${IconCurent}`;
 
-    const UvIndicator = data.current.uv;
-    document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
+  const UvIndicator = data.current.uv;
+  document.getElementById("uvIndicator").textContent = ` ${UvIndicator}`;
 
-    const windIndicator = data.current.wind_kph;
-    document.getElementById("windIndicator").textContent = ` ${windIndicator} km/h`;
+  const windIndicator = data.current.wind_kph;
+  document.getElementById("windIndicator").textContent = ` ${windIndicator} km/h`;
 
-    const pressureIndicator = data.current.pressure_mb;
-    document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator} hPa`;
+  const pressureIndicator = data.current.pressure_mb;
+  document.getElementById("pressureIndicator").textContent = ` ${pressureIndicator} hPa`;
 
-    const humidityIndicator = data.current.humidity;
-    document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator} %`;
+  const humidityIndicator = data.current.humidity;
+  document.getElementById("humidityIndicator").textContent = ` ${humidityIndicator} %`;
 
-    const weatherfure1 = data1.forecast.forecastday.date;
-    document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
+  const weatherfure1 = data1.forecast.forecastday.date;
+  document.getElementsByClassName("HourTime").textContent = ` ${weatherfure1}`;
 
+  // Vezmeme vsetky hodinove hodnoty co maju byt dnes
+  const hourlyData = data1.forecast.forecastday[0].hour;
 
-    // Vezmeme vsetky hodinove hodnoty co maju byt dnes
-    const hourlyData = data1.forecast.forecastday[0].hour;
+  // Momentalna hodina
+  const currentTime = new Date().getHours();
 
-    // Momentalna hodina
-    const currentTime = new Date().getHours();
+  // Zfiltrujeme hodnoty podla toho, aka hodina je a ktore ostavaju z dna
+  const filteredHourlyData = hourlyData.filter((hour) => {
+    const hourTime = parseInt(hour.time.split(" ")[1].split(":")[0]);
+    return hourTime >= currentTime && hourTime < currentTime + 8;
+  });
 
-    // Zfiltrujeme hodnoty podla toho, aka hodina je a ktore ostavaju z dna
-    const filteredHourlyData = hourlyData.filter((hour) => {
-      const hourTime = parseInt(hour.time.split(" ")[1].split(":")[0]);
-      return hourTime >= currentTime && hourTime < currentTime + 8;
-    });
+  const hourlyForecastContainer = document.getElementById("hourly-forecast-container");
+  document.getElementById("hourly-forecast-container").innerHTML = "";
 
-    const hourlyForecastContainer = document.getElementById("hourly-forecast-container");
-    document.getElementById("hourly-forecast-container").innerHTML = "";
+  // Vytvorime HTML Hodnoty pre boxy pomocou cyklu
+  filteredHourlyData.forEach((hour, index) => {
+    const time = hour.time.split(" ")[1]; // Zoberieme iba cas, bez datumu
+    const icon = hour.condition.icon.replace("/images/");
+    const tempC = hour.temp_c;
 
-    // Vytvorime HTML Hodnoty pre boxy pomocou cyklu
-    filteredHourlyData.forEach((hour, index) => {
-      const time = hour.time.split(" ")[1]; // Zoberieme iba cas, bez datumu
-      const icon = hour.condition.icon.replace("/images/");
-      const tempC = hour.temp_c;
+    // Zadanie hodnot do boxu
+    const hourBox = document.createElement("div");
+    hourBox.className = "hour-box";
 
-      // Zadanie hodnot do boxu
-      const hourBox = document.createElement("div");
-      hourBox.className = "hour-box";
-
-      hourBox.innerHTML = `
+    hourBox.innerHTML = `
           <p class="HourTime">${time}</p>
           <img src="${icon}" class="IconHourIcon" />
           <p class="iconHourTemp">${tempC}℃</p>
         `;
 
-      // Odoslanie boxov do HTML
-      hourlyForecastContainer.appendChild(hourBox);
-    });
+    // Odoslanie boxov do HTML
+    hourlyForecastContainer.appendChild(hourBox);
+  });
 
-    
-    const dailyData = data1.forecast.forecastday;
+  const dailyData = data1.forecast.forecastday;
 
-    const day1Box = document.getElementById("day1");
-    const day2Box = document.getElementById("day2");
-    const day3Box = document.getElementById("day3");
+  const day1Box = document.getElementById("day1");
+  const day2Box = document.getElementById("day2");
+  const day3Box = document.getElementById("day3");
 
-    const displayDayForecast = (dayBox, dayData, dayLabels) => {
-      const date = dayData.date;
-      const condition = dayData.day.condition.text;
-      const maxTempC = dayData.day.maxtemp_c;
-      const icon = dayData.day.condition.icon.replace("/images/");
-      const windT = dayData.day.maxwind_kph;
-      const chanceOfRain = dayData.day.daily_chance_of_rain;
-      const humidity1 = dayData.day.avghumidity;
-      const uv1 = dayData.day.uv;
+  const displayDayForecast = (dayBox, dayData, dayLabels) => {
+    const date = dayData.date;
+    const condition = dayData.day.condition.text;
+    const maxTempC = dayData.day.maxtemp_c;
+    const icon = dayData.day.condition.icon.replace("/images/");
+    const windT = dayData.day.maxwind_kph;
+    const chanceOfRain = dayData.day.daily_chance_of_rain;
+    const humidity1 = dayData.day.avghumidity;
+    const uv1 = dayData.day.uv;
 
-      dayBox.innerHTML = `
+    dayBox.innerHTML = `
         <table>
           <tr>
             <td><p class="DayDate">${date}</p></td>
             <td rowspan="4" class="nextInfo">
               <p class="infoDet">Wind: ${windT} km/h</p>
               <p class="infoDet">Rain: ${chanceOfRain}%</p>
-              <p class="infoDet">Humidity: ${humidity1}</p>
+              <p class="infoDet">Humidity: ${humidity1}%</p>
               <p class="infoDet">UV: ${uv1}</p>
             </td>
           </tr>
@@ -159,8 +156,8 @@ navigator.geolocation.getCurrentPosition(async (position) => {
         </table>
 
   `;
-    };
-    displayDayForecast(day1Box, dailyData[0], "Today");
-    displayDayForecast(day2Box, dailyData[1], "Tomorrow");
-    displayDayForecast(day3Box, dailyData[2], "In 3 days");
-  }
+  };
+  displayDayForecast(day1Box, dailyData[0], "Today");
+  displayDayForecast(day2Box, dailyData[1], "Tomorrow");
+  displayDayForecast(day3Box, dailyData[2], "In 3 days");
+}
